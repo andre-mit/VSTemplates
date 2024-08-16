@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Andre A",
+  "classifications": [ "WebAPI", "DDD", "Onion Architecture" ],
+  "identity": "Clean.Arch.Template",
+  "name": "Clean DDD Architecture Template",
+  "shortName": "cleanarch",
+  "sourceName": "Clean.Arch.Template",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "symbols": {
+    "contextName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "ApplicationDbContext",
+      "defaultValue": "ApplicationDbContext",
+      "description": "O nome do contexto do banco de dados"
+    },
+    "dbProvider": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "SQL Server",
+          "description": "SqlServer",
+          "displayName": "SQL Server"
+        },
+        {
+          "choice": "PostgreSQL",
+          "description": "PostgreSQL",
+          "displayName": "PostgreSQL"
+        },
+        {
+          "choice": "MySQL",
+          "description": "MySQL",
+          "displayName": "MySQL"
+        },
+        {
+          "choice": "SQLite",
+          "description": "SQLite",
+          "displayName": "SQLite"
+        }
+      ],
+      "replaces": "DatabaseProvider",
+      "defaultValue": "SqlServer",
+      "description": "Escolha o provedor de banco de dados"
+    }
+  },
+  "sources": [
+    {
+
+      "modifiers": [
+        {
+          "condition": "(dbProvider == 'SqlServer')",
+          "rename": {
+            "DatabaseProvider.cs": "SqlServerProvider.cs"
+          }
+        },
+        {
+          "condition": "(dbProvider == 'PostgreSQL')",
+          "rename": {
+            "DatabaseProvider.cs": "PostgreSQLProvider.cs"
+          }
+        },
+        {
+          "condition": "(dbProvider == 'MySQL')",
+          "rename": {
+            "DatabaseProvider.cs": "MySQLProvider.cs"
+          }
+        },
+        {
+          "condition": "(dbProvider == 'SQLite')",
+          "rename": {
+            "DatabaseProvider.cs": "SQLiteProvider.cs"
+          }
+        }
+      ],
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        ".template.config/**/*",
+        "templates/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "*.nuspec"
+      ]
+    }
+  ],
+  "postActions": [
+    {
+      "manualInstructions": [
+        {
+          "text": "Configure the connection string in the appsettings.json file"
+        }
+      ],
+      "actionId": "2e4e17f5-b636-4884-9c42-d54a8fb50f5a",
+      "args": {
+        "createSolutionFile": true,
+        "solutionFileName": "Clean.Arch.Template.sln",
+        "addProjects": [
+          {
+            "path": "./src/Clean.Arch.Template.Domain/Clean.Arch.Template.Domain.csproj"
+          },
+          {
+            "path": "./src/Clean.Arch.Template.Shared/Clean.Arch.Template.Shared.csproj"
+          },
+          {
+            "path": "./src/Clean.Arch.Template.Infrastructure.Data/Clean.Arch.Template.Infrastructure.Data.csproj"
+          },
+          {
+            "path": "./src/Clean.Arch.Template.Application/Clean.Arch.Template.Application.csproj"
+          },
+          {
+            "path": "./src/Clean.Arch.Template.WebAPI/Clean.Arch.Template.WebAPI.csproj"
+          },
+          {
+            "path": "./src/Clean.Arch.Template.Tests/Clean.Arch.Template.Tests.csproj"
+          }
+        ]
+      }
+    }
+  ]
+}
