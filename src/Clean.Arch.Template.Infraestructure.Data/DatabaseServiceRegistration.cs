@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Clean.Arch.Template.Infraestructure.Data.Contexts;
 
 namespace Clean.Arch.Template.Infraestructure.Data;
 public static class DatabaseServiceRegistration
@@ -6,7 +8,7 @@ public static class DatabaseServiceRegistration
     public static void AddDatabaseServices(this IServiceCollection services, DatabaseOptions configuration)
     {
         var connectionString = configuration.ConnectionString;
-#if SqlServer
+#if SQLServer
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
 #elif PostgreSQL

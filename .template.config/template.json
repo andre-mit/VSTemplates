@@ -1,12 +1,14 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Andre A",
+  "author": "Andre",
   "classifications": [ "WebAPI", "DDD", "Onion Architecture" ],
   "identity": "Clean.Arch.Template",
   "name": "Clean DDD Architecture Template",
   "shortName": "cleanarch",
   "sourceName": "Clean.Arch.Template",
   "preferNameDirectory": true,
+  "description": "A template for creating a clean DDD architecture solution",
+  "defaultName": "Clean.Arch.Template",
   "tags": {
     "language": "C#",
     "type": "solution"
@@ -17,15 +19,15 @@
       "datatype": "string",
       "replaces": "ApplicationDbContext",
       "defaultValue": "ApplicationDbContext",
-      "description": "O nome do contexto do banco de dados"
+      "description": "Database context name"
     },
     "dbProvider": {
       "type": "parameter",
       "datatype": "choice",
       "choices": [
         {
-          "choice": "SQL Server",
-          "description": "SqlServer",
+          "choice": "SQLServer",
+          "description": "SQL Server",
           "displayName": "SQL Server"
         },
         {
@@ -45,13 +47,28 @@
         }
       ],
       "replaces": "DatabaseProvider",
-      "defaultValue": "SqlServer",
-      "description": "Escolha o provedor de banco de dados"
+      "defaultValue": "SQLServer",
+      "description": "Choose database provider"
+    },
+    "SQLServer": {
+      "type": "computed",
+      "value": "(dbProvider == 'SQLServer')"
+    },
+    "PostgreSQL": {
+      "type": "computed",
+      "value": "(dbProvider == 'PostgreSQL')"
+    },
+    "MySQL": {
+      "type": "computed",
+      "value": "(dbProvider == 'MySQL')"
+    },
+    "SQLite": {
+      "type": "computed",
+      "value": "(dbProvider == 'SQLite')"
     }
   },
   "sources": [
     {
-
       "modifiers": [
         {
           "condition": "(dbProvider == 'SqlServer')",
@@ -86,7 +103,13 @@
         "**/*.filelist",
         "**/*.user",
         "**/*.lock.json",
-        "*.nuspec"
+        "*.nuspec",
+        ".vs/*",
+        ".git/**/*",
+        ".gitattributes",
+        "*ignore",
+        "readme.md",
+        "*.sln"
       ]
     }
   ],

@@ -6,20 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='SqlServer'">
+	<ItemGroup>
+		<!--#if (SQLServer) -->
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='PostgreSQL'">
+		<!--#elif (PostgreSQL) -->
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='MySQL'">
+		<!--#elif (MySQL) -->
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='SQLite'">
+		<!--#elif (SQLite) -->
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+		<!--#endif -->
 	</ItemGroup>
 
 	<ItemGroup>
